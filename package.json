@@ -1,0 +1,25 @@
+{
+  "name": "root",
+  "private": true,
+  "packageManager": "pnpm@9.9.0",
+  "engines": {
+    "node": ">=18.20.3"
+  },
+  "scripts": {
+    "doc:dev": "pnpm --filter doc dev",
+    "package:dev": "pnpm --filter zod-pocketbase dev",
+    "playground:gen": "pnpm --filter playground generate",
+    "changeset": "changeset",
+    "release": "node scripts/release.mjs"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.8",
+    "@typescript-eslint/parser": "^8.6.0",
+    "eslint": "^9.11.0",
+    "eslint-plugin-astro": "^1.2.4",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.6.6"
+  }
+}

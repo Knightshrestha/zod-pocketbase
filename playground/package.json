@@ -1,0 +1,14 @@
+{
+  "name": "playground",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "pocketbase": "^0.21.5",
+    "zod": "^3.23.8",
+    "zod-pocketbase": "workspace:*"
+  },
+  "scripts": {
+    "generate": "pnpm exec zod-pocketbase"
+  }
+}
