@@ -1,5 +1,11 @@
 # zod-pocketbase
 
+## 0.2.1
+
+### Patch Changes
+
+- be3d479: add cache option to helpers
+
 ## 0.2.0
 
 ### Minor Changes
