@@ -1,7 +1,8 @@
+import type Pocketbase from "pocketbase";
 import { fullListOptionsFrom, optionsFrom } from "./options.js";
-import type { AnyZodRecord, GetHelpersOpts, GetRecordOpts, GetRecordsOpts, RecordIdRef, RecordRef, RecordSlugRef } from "./types.ts";
+import type { AnyZodRecord, RecordFullListOpts, RecordIdRef, RecordRef, RecordSlugRef } from "./types.ts";
 
-export function getHelpers({ pocketbase }: GetHelpersOpts) {
+export function helpersFrom({ pocketbase }: HelpersFromOpts) {
   async function getRecord<C extends string, S extends AnyZodRecord>(ref: RecordSlugRef<C>, opts: GetRecordOpts<S>): Promise<S["_output"]>;
   async function getRecord<C extends string, S extends AnyZodRecord>(ref: RecordIdRef<C>, opts: GetRecordOpts<S>): Promise<S["_output"]>;
   async function getRecord<C extends string, S extends AnyZodRecord>(ref: RecordRef<C>, opts: GetRecordOpts<S>) {
@@ -20,3 +21,9 @@ export function getHelpers({ pocketbase }: GetHelpersOpts) {
 
   return { getRecord, getRecords };
 }
+
+export type GetRecordOpts<S extends AnyZodRecord> = { schema: S };
+
+export type GetRecordsOpts<S extends AnyZodRecord> = RecordFullListOpts<S> & { schema: S };
+
+export type HelpersFromOpts = { pocketbase: Pocketbase };

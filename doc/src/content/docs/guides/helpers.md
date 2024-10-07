@@ -1,8 +1,6 @@
 ---
 title: Helpers
-description: A guide in my new Starlight docs site.
+description: Helpers are syntaxic sugar to get records from your PocketBase instance.
 ---
 
-## getRecord
-
-## getRecords
+Coming soon!

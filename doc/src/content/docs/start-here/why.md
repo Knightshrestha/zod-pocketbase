@@ -159,7 +159,7 @@ const firstPosts = Post.array().parse(unsafeData);
 import PocketBase from "pocketbase";
 import { z } from "zod";
 import { select } from "zod-pocketbase";
-+ import { expandFrom, fieldsFrom, optionsFrom } from "zod-pocketbase";
++ import { expandFrom, fieldsFrom, listOptionsFrom } from "zod-pocketbase";
 import { AuthorRecord, PostRecord } from "./schemas";
 
 const pocketbase = new PocketBase("https://my-pocketbase.com");
@@ -177,7 +177,7 @@ const options = {
 };
 
 /* Or, for the syntax sugar addicts */
-+ const options = optionsFrom(Post, {sort: "-updated"});
++ const options = listOptionsFrom(Post, { sort: "-updated" });
 
 const unsafeData = await pocketbase.collection("posts").getList(1, 10, options);
 const firstPosts = Post.array().parse(unsafeData);
@@ -193,13 +193,13 @@ import { select } from "zod-pocketbase";
 import { AuthorRecord, PostRecord } from "./schemas";
 
 const pocketbase = new PocketBase("https://my-pocketbase.com");
-+ const { getRecords } = helpersFrom(pocketbase);
++ const { getRecords } = helpersFrom({ pocketbase });
 
 const Post = select(PostRecord, ["content", "title"], {
   author: select(AuthorRecord, ["name"])
 });
 
-- const options = optionsFrom(Post, {sort: "-updated"});
+- const options = optionsFrom(Post, { sort: "-updated" });
 + const options = { perPage: 10, schema: Post, sort: "-updated" };
 
 - const unsafeData = await pocketbase.collection("posts").getList(1, 10, options);

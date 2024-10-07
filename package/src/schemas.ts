@@ -1,5 +1,5 @@
-import { type AnyZodObject, z, type ZodRawShape } from "zod";
-import type { ZodObjectExpand, ZodObjectPick, ZodRecordKeys } from "./types.ts";
+import { type AnyZodObject, type objectUtil, z, type ZodEffects, type ZodObject, type ZodRawShape } from "zod";
+import type { ZodRecordKeys } from "./types.ts";
 
 /**
  * Extends the given schema with the given expansion.
@@ -43,3 +43,14 @@ export function select<S extends AnyZodObject, K extends ZodRecordKeys<S>[], E e
 ) {
   return shape ? expand(pick(schema, keys), shape) : pick(schema, keys);
 }
+
+export type ZodObjectExpand<S extends AnyZodObject, E extends ZodRawShape> =
+  S extends ZodObject<infer T, infer U, infer C>
+    ? ZodEffects<
+        ZodObject<objectUtil.extendShape<T, { expand: ZodObject<E> }>, U, C>,
+        ZodObject<objectUtil.extendShape<T, E>, U, C>["_output"]
+      >
+    : never;
+
+export type ZodObjectPick<S extends AnyZodObject, K extends ZodRecordKeys<S>[]> =
+  S extends ZodObject<infer T, infer U, infer C> ? ZodObject<Pick<T, K[number]>, U, C> : never;

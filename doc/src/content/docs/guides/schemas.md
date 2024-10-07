@@ -1,6 +1,6 @@
 ---
 title: Schemas
-description: A guide in my new Starlight docs site.
+description: How to secure and simplify schemas for your PocketBase instance.
 ---
 
 ## Zod schema
@@ -87,11 +87,11 @@ const Post = pick(PostRecord, ["content", "title", "updated"])
 import { expand, pick } from "zod-pocketbase";
 import {AuthorRecord, ImageRecord, PostRecord} from "./schemas";
 
-const Post = expand(pick(PostRecord, [ "content", "title", "updated" ]), {
-  author: expand(pick(AuthorRecord, [ "name" ]), {
-    image: pick(ImageRecord, [ "alt", "src" ])
+const Post = expand(pick(PostRecord, ["content", "title", "updated"]), {
+  author: expand(pick(AuthorRecord, ["name"]), {
+    image: pick(ImageRecord, ["alt", "src"])
   }),
-  image: pick(ImageRecord, [ "alt", "src" ])
+  image: pick(ImageRecord, ["alt", "src"])
 });
 ```
 
@@ -103,10 +103,10 @@ const Post = expand(pick(PostRecord, [ "content", "title", "updated" ]), {
 import { select } from "zod-pocketbase";
 import {AuthorRecord, ImageRecord, PostRecord} from "./schemas";
 
-const Post = select(PostRecord, [ "content", "title", "updated" ], {
-  author: select(AuthorRecord, [ "name" ], {
-    image: select(ImageRecord, [ "alt", "src" ])
+const Post = select(PostRecord, ["content", "title", "updated"], {
+  author: select(AuthorRecord, ["name"], {
+    image: select(ImageRecord, ["alt", "src"])
   }),
-  image: select(ImageRecord, [ "alt", "src" ])
+  image: select(ImageRecord, ["alt", "src"])
 });
 ```

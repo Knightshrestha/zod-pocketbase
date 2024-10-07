@@ -23,7 +23,7 @@ export function stringifyContent(collections: CollectionModel[], opts: GenerateO
     const schemaName = opts.nameRecordSchema(name);
     const typeName = opts.nameRecordType(name);
     const fields = sortBy(schema, ["name"]).map((field) => stringifyField(field, name));
-    return `export const ${schemaName} = z.object({\n\t...RecordModel.omit({ expand: true }).shape,\n\t${fields.join(",\n\t")}\n});\nexport type ${typeName} = z.infer<typeof ${schemaName}>;`;
+    return `export const ${schemaName} = z.object({\n\t...RecordModel.omit({ expand: true }).shape,\n\tcollectionName: z.literal("${name}"),\n\t${fields.join(",\n\t")}\n});\nexport type ${typeName} = z.infer<typeof ${schemaName}>;\n`;
   }
 
   function stringifyField(field: SchemaField, collectionName: string) {

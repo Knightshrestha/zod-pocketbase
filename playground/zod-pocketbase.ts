@@ -54,6 +54,7 @@ export type RecordModel = z.infer<typeof RecordModel>;
 /******* RECORDS *******/
 export const ConfigRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
+	collectionName: z.literal("config"),
 	city: z.string(),
 	email: z.string().email(),
 	facebook: z.string().url(),
@@ -66,8 +67,10 @@ export const ConfigRecord = z.object({
 });
 export type ConfigRecord = z.infer<typeof ConfigRecord>;
 
+
 export const EventsRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
+	collectionName: z.literal("events"),
 	excerpt: z.string(),
 	from: z.string().pipe(z.coerce.date()),
 	image: z.string(),
@@ -80,8 +83,10 @@ export const EventsRecord = z.object({
 });
 export type EventsRecord = z.infer<typeof EventsRecord>;
 
+
 export const ImagesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
+	collectionName: z.literal("images"),
 	alt: z.string(),
 	height: z.number().int(),
 	src: z.string(),
@@ -89,8 +94,10 @@ export const ImagesRecord = z.object({
 });
 export type ImagesRecord = z.infer<typeof ImagesRecord>;
 
+
 export const KnowledgesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
+	collectionName: z.literal("knowledges"),
 	image: z.string(),
 	name: z.string(),
 	slug: z.string(),
@@ -98,8 +105,10 @@ export const KnowledgesRecord = z.object({
 });
 export type KnowledgesRecord = z.infer<typeof KnowledgesRecord>;
 
+
 export const PagesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
+	collectionName: z.literal("pages"),
 	knowledge: z.string(),
 	post: z.string(),
 	services: z.string().array().optional(),
@@ -109,15 +118,19 @@ export const PagesRecord = z.object({
 });
 export type PagesRecord = z.infer<typeof PagesRecord>;
 
+
 export const PlacesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
+	collectionName: z.literal("places"),
 	name: z.string(),
 	slug: z.string()
 });
 export type PlacesRecord = z.infer<typeof PlacesRecord>;
 
+
 export const PostsRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
+	collectionName: z.literal("posts"),
 	excerpt: z.string(),
 	image: z.string().transform((id) => { return id !== "" ? id : undefined }).optional(),
 	knowledge: z.string(),
@@ -127,8 +140,10 @@ export const PostsRecord = z.object({
 });
 export type PostsRecord = z.infer<typeof PostsRecord>;
 
+
 export const ProductsRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
+	collectionName: z.literal("products"),
 	excerpt: z.string(),
 	image: z.string(),
 	name: z.string(),
@@ -139,8 +154,10 @@ export const ProductsRecord = z.object({
 });
 export type ProductsRecord = z.infer<typeof ProductsRecord>;
 
+
 export const ServicesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
+	collectionName: z.literal("services"),
 	category: ServicesCategory,
 	duration: z.string(),
 	excerpt: z.string(),
@@ -154,13 +171,16 @@ export const ServicesRecord = z.object({
 });
 export type ServicesRecord = z.infer<typeof ServicesRecord>;
 
+
 export const TestimoniesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
+	collectionName: z.literal("testimonies"),
 	author: z.string(),
 	text: z.string(),
 	title: z.string()
 });
 export type TestimoniesRecord = z.infer<typeof TestimoniesRecord>;
+
 
 export const records = new Map<Collection, z.AnyZodObject>([
 	["config", ConfigRecord],
