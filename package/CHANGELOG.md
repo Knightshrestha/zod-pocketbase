@@ -1,5 +1,11 @@
 # zod-pocketbase
 
+## 0.2.2
+
+### Patch Changes
+
+- 6980455: fix the case when expand only contains keys with optional schemas
+
 ## 0.2.1
 
 ### Patch Changes
