@@ -11,7 +11,7 @@ export function expand<S extends AnyZodObject, E extends ZodRawShape>(schema: S,
   const isExpandOptional = Object.entries(shape).every(([, value]) => value instanceof z.ZodOptional);
   return z
     .object({ ...schema.shape, expand: isExpandOptional ? z.object(shape).optional() : z.object(shape) })
-    .transform(({ expand, ...rest }) => ({ ...rest, ...expand })) as ZodObjectExpand<S, E>;
+    .transform(({ expand, ...rest }) => ({ ...rest, ...(expand ?? {}) })) as ZodObjectExpand<S, E>;
 }
 
 /**
