@@ -1,4 +1,4 @@
-import type { AnyZodObject, ZodEffects } from "zod";
+import type { AnyZodObject, ZodEffects, ZodOptional, ZodRawShape, ZodTypeAny } from "zod";
 
 export type AnyZodRecord = AnyZodObject | ZodEffects<AnyZodObject>;
 
@@ -21,3 +21,11 @@ export type ZodRecordKeys<S extends AnyZodRecord> = Extract<keyof S["_input"], s
 export type ZodRecordMainKeys<S extends AnyZodRecord> = Exclude<ZodRecordKeys<S>, "expand">;
 
 export type ZodRecordSort<S extends AnyZodRecord> = `${"+" | "-"}${ZodRecordMainKeys<S>}` | "@random";
+
+type RequiredKeysOf<S extends ZodRawShape> = Exclude<
+  {
+    [Key in keyof S]: S[Key] extends ZodOptional<ZodTypeAny> ? never : Key;
+  }[keyof S],
+  undefined
+>;
+export type HasRequiredKeys<S extends ZodRawShape> = RequiredKeysOf<S> extends never ? false : true;

@@ -1,5 +1,5 @@
-import { type AnyZodObject, type objectUtil, z, type ZodEffects, type ZodObject, type ZodRawShape } from "zod";
-import type { ZodRecordKeys } from "./types.ts";
+import { type AnyZodObject, type objectUtil, z, type ZodEffects, type ZodObject, ZodOptional, type ZodRawShape } from "zod";
+import type { HasRequiredKeys, ZodRecordKeys } from "./types.ts";
 
 /**
  * Extends the given schema with the given expansion.
@@ -8,8 +8,9 @@ import type { ZodRecordKeys } from "./types.ts";
  * @returns A new schema extended with the given expansion
  */
 export function expand<S extends AnyZodObject, E extends ZodRawShape>(schema: S, shape: E) {
+  const isExpandOptional = Object.entries(shape).every(([, value]) => value instanceof z.ZodOptional);
   return z
-    .object({ ...schema.shape, expand: z.object(shape) })
+    .object({ ...schema.shape, expand: isExpandOptional ? z.object(shape).optional() : z.object(shape) })
     .transform(({ expand, ...rest }) => ({ ...rest, ...expand })) as ZodObjectExpand<S, E>;
 }
 
@@ -47,7 +48,7 @@ export function select<S extends AnyZodObject, K extends ZodRecordKeys<S>[], E e
 export type ZodObjectExpand<S extends AnyZodObject, E extends ZodRawShape> =
   S extends ZodObject<infer T, infer U, infer C>
     ? ZodEffects<
-        ZodObject<objectUtil.extendShape<T, { expand: ZodObject<E> }>, U, C>,
+        ZodObject<objectUtil.extendShape<T, { expand: HasRequiredKeys<E> extends true ? ZodObject<E> : ZodOptional<ZodObject<E>> }>, U, C>,
         ZodObject<objectUtil.extendShape<T, E>, U, C>["_output"]
       >
     : never;
