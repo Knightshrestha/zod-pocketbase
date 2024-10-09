@@ -59,7 +59,7 @@ function expandFromRec<S extends ZodTypeAny>(schema: S, prefix = "") {
   let expands: string[] = [];
   const shape = getObjectSchemaDescendant(schema)?.shape;
   if (!shape || !("expand" in shape)) return [];
-  for (const [key, value] of Object.entries(shape.expand.shape)) {
+  for (const [key, value] of Object.entries(getObjectSchemaDescendant(shape.expand)!.shape)) {
     expands = [...expands, `${prefix}${key}`];
     if (hasObjectSchemaDescendant(value)) expands = [...expands, ...expandFromRec(getObjectSchemaDescendant(value)!, `${prefix}${key}.`)];
   }
