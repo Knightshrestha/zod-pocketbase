@@ -1,5 +1,11 @@
 # zod-pocketbase
 
+## 0.2.4
+
+### Patch Changes
+
+- 03555e2: fix optional expand in expand method
+
 ## 0.2.3
 
 ### Patch Changes
