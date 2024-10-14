@@ -52,7 +52,7 @@ export const RecordModel = z.object({
 export type RecordModel = z.infer<typeof RecordModel>;
 
 /******* RECORDS *******/
-export const ConfigRecord = z.object({
+export const zConfigRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
 	collectionName: z.literal("config"),
 	city: z.string(),
@@ -65,10 +65,10 @@ export const ConfigRecord = z.object({
 	website: z.string().url(),
 	zipcode: z.string()
 });
-export type ConfigRecord = z.infer<typeof ConfigRecord>;
+export type ConfigRecord = z.infer<typeof zConfigRecord>;
 
 
-export const EventsRecord = z.object({
+export const zEventsRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
 	collectionName: z.literal("events"),
 	excerpt: z.string(),
@@ -81,10 +81,10 @@ export const EventsRecord = z.object({
 	to: z.string().pipe(z.coerce.date()),
 	url: z.string().url()
 });
-export type EventsRecord = z.infer<typeof EventsRecord>;
+export type EventsRecord = z.infer<typeof zEventsRecord>;
 
 
-export const ImagesRecord = z.object({
+export const zImagesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
 	collectionName: z.literal("images"),
 	alt: z.string(),
@@ -92,10 +92,10 @@ export const ImagesRecord = z.object({
 	src: z.string(),
 	width: z.number().int()
 });
-export type ImagesRecord = z.infer<typeof ImagesRecord>;
+export type ImagesRecord = z.infer<typeof zImagesRecord>;
 
 
-export const KnowledgesRecord = z.object({
+export const zKnowledgesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
 	collectionName: z.literal("knowledges"),
 	image: z.string(),
@@ -103,45 +103,45 @@ export const KnowledgesRecord = z.object({
 	slug: z.string(),
 	text: z.string()
 });
-export type KnowledgesRecord = z.infer<typeof KnowledgesRecord>;
+export type KnowledgesRecord = z.infer<typeof zKnowledgesRecord>;
 
 
-export const PagesRecord = z.object({
+export const zPagesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
 	collectionName: z.literal("pages"),
 	knowledge: z.string(),
 	post: z.string(),
 	services: z.string().array().optional(),
 	slug: z.string(),
-	testimoniesImage: z.string().transform((id) => { return id !== "" ? id : undefined }).optional(),
+	testimoniesImage: z.string().transform((id) => id === "" ? undefined : id).optional(),
 	title: z.string()
 });
-export type PagesRecord = z.infer<typeof PagesRecord>;
+export type PagesRecord = z.infer<typeof zPagesRecord>;
 
 
-export const PlacesRecord = z.object({
+export const zPlacesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
 	collectionName: z.literal("places"),
 	name: z.string(),
 	slug: z.string()
 });
-export type PlacesRecord = z.infer<typeof PlacesRecord>;
+export type PlacesRecord = z.infer<typeof zPlacesRecord>;
 
 
-export const PostsRecord = z.object({
+export const zPostsRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
 	collectionName: z.literal("posts"),
 	excerpt: z.string(),
-	image: z.string().transform((id) => { return id !== "" ? id : undefined }).optional(),
+	image: z.string().transform((id) => id === "" ? undefined : id).optional(),
 	knowledge: z.string(),
 	slug: z.string(),
 	text: z.string(),
 	title: z.string()
 });
-export type PostsRecord = z.infer<typeof PostsRecord>;
+export type PostsRecord = z.infer<typeof zPostsRecord>;
 
 
-export const ProductsRecord = z.object({
+export const zProductsRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
 	collectionName: z.literal("products"),
 	excerpt: z.string(),
@@ -152,10 +152,10 @@ export const ProductsRecord = z.object({
 	text: z.string(),
 	url: z.string().url()
 });
-export type ProductsRecord = z.infer<typeof ProductsRecord>;
+export type ProductsRecord = z.infer<typeof zProductsRecord>;
 
 
-export const ServicesRecord = z.object({
+export const zServicesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
 	collectionName: z.literal("services"),
 	category: ServicesCategory,
@@ -169,42 +169,42 @@ export const ServicesRecord = z.object({
 	slug: z.string(),
 	text: z.string()
 });
-export type ServicesRecord = z.infer<typeof ServicesRecord>;
+export type ServicesRecord = z.infer<typeof zServicesRecord>;
 
 
-export const TestimoniesRecord = z.object({
+export const zTestimoniesRecord = z.object({
 	...RecordModel.omit({ expand: true }).shape,
 	collectionName: z.literal("testimonies"),
 	author: z.string(),
 	text: z.string(),
 	title: z.string()
 });
-export type TestimoniesRecord = z.infer<typeof TestimoniesRecord>;
+export type TestimoniesRecord = z.infer<typeof zTestimoniesRecord>;
 
 
 export const records = new Map<Collection, z.AnyZodObject>([
-	["config", ConfigRecord],
-	["events", EventsRecord],
-	["images", ImagesRecord],
-	["knowledges", KnowledgesRecord],
-	["pages", PagesRecord],
-	["places", PlacesRecord],
-	["posts", PostsRecord],
-	["products", ProductsRecord],
-	["services", ServicesRecord],
-	["testimonies", TestimoniesRecord],
+	["config", zConfigRecord],
+	["events", zEventsRecord],
+	["images", zImagesRecord],
+	["knowledges", zKnowledgesRecord],
+	["pages", zPagesRecord],
+	["places", zPlacesRecord],
+	["posts", zPostsRecord],
+	["products", zProductsRecord],
+	["services", zServicesRecord],
+	["testimonies", zTestimoniesRecord],
 ]);
 
 /******* CLIENT *******/
 export type TypedPocketbase = Pocketbase & {
-		collection(idOrName: "config"): RecordService<z.input<typeof ConfigRecord>>;
-		collection(idOrName: "events"): RecordService<z.input<typeof EventsRecord>>;
-		collection(idOrName: "images"): RecordService<z.input<typeof ImagesRecord>>;
-		collection(idOrName: "knowledges"): RecordService<z.input<typeof KnowledgesRecord>>;
-		collection(idOrName: "pages"): RecordService<z.input<typeof PagesRecord>>;
-		collection(idOrName: "places"): RecordService<z.input<typeof PlacesRecord>>;
-		collection(idOrName: "posts"): RecordService<z.input<typeof PostsRecord>>;
-		collection(idOrName: "products"): RecordService<z.input<typeof ProductsRecord>>;
-		collection(idOrName: "services"): RecordService<z.input<typeof ServicesRecord>>;
-		collection(idOrName: "testimonies"): RecordService<z.input<typeof TestimoniesRecord>>;
+		collection(idOrName: "config"): RecordService<z.input<typeof zConfigRecord>>;
+		collection(idOrName: "events"): RecordService<z.input<typeof zEventsRecord>>;
+		collection(idOrName: "images"): RecordService<z.input<typeof zImagesRecord>>;
+		collection(idOrName: "knowledges"): RecordService<z.input<typeof zKnowledgesRecord>>;
+		collection(idOrName: "pages"): RecordService<z.input<typeof zPagesRecord>>;
+		collection(idOrName: "places"): RecordService<z.input<typeof zPlacesRecord>>;
+		collection(idOrName: "posts"): RecordService<z.input<typeof zPostsRecord>>;
+		collection(idOrName: "products"): RecordService<z.input<typeof zProductsRecord>>;
+		collection(idOrName: "services"): RecordService<z.input<typeof zServicesRecord>>;
+		collection(idOrName: "testimonies"): RecordService<z.input<typeof zTestimoniesRecord>>;
 };

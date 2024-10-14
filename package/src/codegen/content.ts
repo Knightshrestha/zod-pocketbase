@@ -1,6 +1,6 @@
 import { sortBy } from "es-toolkit";
 import type { CollectionModel, SchemaField } from "pocketbase";
-import type { GenerateOpts } from "./index.ts";
+import type { GenerateOpts } from "./utils.ts";
 
 export function stringifyContent(collections: CollectionModel[], opts: GenerateOpts) {
   function getCollectionSelectFields() {
@@ -82,7 +82,7 @@ export function stringifyContent(collections: CollectionModel[], opts: GenerateO
     const min = minSelect ? `.min(${minSelect})` : "";
     const max = maxSelect ? `.max(${maxSelect})` : "";
     const multiple = maxSelect === 1 ? "" : `.array()${min}${max}`;
-    const isOptional = required || maxSelect !== 1 ? `` : `.transform((id) => { return id !== "" ? id : undefined })`;
+    const isOptional = required || maxSelect !== 1 ? `` : `.transform((id) => id === "" ? undefined : id)`;
     return `z.string()${isOptional}${multiple}`;
   }
 
