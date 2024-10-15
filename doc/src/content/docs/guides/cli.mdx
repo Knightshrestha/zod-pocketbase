@@ -3,6 +3,8 @@ title: CLI
 description: The CLI generates Zod schemas for your PocketBase instance.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import cliImage from '../../../assets/cli.png';
 
 The CLI generates Zod schemas for your PocketBase instance.
 
@@ -28,22 +30,16 @@ To generate your schemas, run the following from your project directory:
   </TabItem>
 </Tabs>
 
-The following options are available:
+<Image src={cliImage} alt="Zod PocketBase CLI." />
 
-```shell
-Options:
-  -V, --version                output the version number
-  -u, --url <char>             URL to your hosted pocketbase instance.
-  -e, --admin-email <char>     email for an admin pocketbase user.
-  -p, --admin-password <char>  password for an admin pocketbase user.
-  -i, --ignore [value...]      collections to ignore. (default: [])
-  -o, --out <char>             path to save the typescript output file (default: "zod-pocketbase.ts")
-  -h, --help                   display help for command
-```
+## Config File
+
+You can provide a `zod-pocketbase.config.ts` or `zod-pocketbase.config.js` config file. 
+
 
 ## Environment variables
 
-You can also provide your admin credentials and your PocketBase instance url as environment variables:
+You can provide your admin credentials and your PocketBase instance url as environment variables:
 
 ```shell
 ZOD_POCKETBASE_ADMIN_EMAIL="admin@mydomain.com"
