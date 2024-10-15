@@ -50,24 +50,24 @@ async function selectCollections(config: ResolvedConfig) {
 }
 
 async function setGeneratedFilePath(config: ResolvedConfig) {
-  const out = await text({
+  const output = await text({
     message: "What is the generated file path?",
-    initialValue: config.out,
+    initialValue: config.output,
     validate: (value) => {
       if (!value) return "Please enter a path.";
       if (value[0] !== ".") return "Please enter a relative path.";
       return;
     },
   });
-  if (isCancel(out)) onCancel();
+  if (isCancel(output)) onCancel();
 
-  if (existsSync(out as string)) {
+  if (existsSync(output as string)) {
     const confirmed = await confirm({ message: "The file already exists, would you like to overwrite it?" });
     if (isCancel(confirmed)) onCancel();
     if (!confirmed) return setGeneratedFilePath(config);
   }
 
-  return out as string;
+  return output as string;
 }
 
 const main = defineCommand({
@@ -76,11 +76,11 @@ const main = defineCommand({
     intro(`ZOD POCKETBASE`);
     const config = await getConfig();
     const collections = await selectCollections(config);
-    const out = await setGeneratedFilePath(config);
+    const output = await setGeneratedFilePath(config);
 
     const s = spinner();
     s.start("Generating your schemas...");
-    await generate(collections, { ...config, out });
+    await generate(collections, { ...config, output });
     s.stop("Schemas successfully generated.");
 
     outro("Operation completed.");

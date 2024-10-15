@@ -21,8 +21,8 @@ export async function generate(collections: CollectionModel[], opts: GenerateOpt
     .replace("@@_ENUMS_@@", enums)
     .replace("@@_RECORDS_@@", records)
     .replace("@@_SERVICES_@@", services);
-  mkdirSync(dirname(opts.out), { recursive: true });
-  writeFileSync(opts.out, content);
+  mkdirSync(dirname(opts.output), { recursive: true });
+  writeFileSync(opts.output, content);
 }
 
 export type GenerateOpts = Omit<ResolvedConfig, "adminEmail" | "adminPassword" | "ignore" | "url">;

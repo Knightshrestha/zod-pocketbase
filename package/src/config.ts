@@ -10,7 +10,7 @@ export const defaultConfig = {
   nameEnumValues: (name: string) => `${name}Values`,
   nameRecordSchema: (name: string) => `${pascalCase(name)}Record`,
   nameRecordType: (name: string) => `${pascalCase(name)}Record`,
-  out: "./zod-pocketbase.ts",
+  output: "./zod-pocketbase.ts",
 };
 
 export const Credentials = z.object({
@@ -51,7 +51,7 @@ export const Config = z.object({
     .function(z.tuple([z.string()]), z.string())
     .optional()
     .transform((f) => f ?? defaultConfig.nameRecordType),
-  out: z.string().default(defaultConfig.out),
+  output: z.string().default(defaultConfig.output),
 });
 export type Config = z.input<typeof Config>;
 export type ResolvedConfig = z.infer<typeof Config>;
