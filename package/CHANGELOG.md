@@ -1,5 +1,11 @@
 # zod-pocketbase
 
+## 0.3.4
+
+### Patch Changes
+
+- rename out to output
+
 ## 0.3.3
 
 ### Patch Changes
