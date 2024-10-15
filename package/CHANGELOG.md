@@ -1,5 +1,11 @@
 # zod-pocketbase
 
+## 0.3.1
+
+### Patch Changes
+
+- fix generated syntax
+
 ## 0.3.0
 
 ### Minor Changes
