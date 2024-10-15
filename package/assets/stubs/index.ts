@@ -1,5 +1,5 @@
 import type Pocketbase from "pocketbase";
-import type {RecordService} from "pocketbase";
+import type { RecordService } from "pocketbase";
 import { z } from "zod";
 
 /******* ENUMS *******/
