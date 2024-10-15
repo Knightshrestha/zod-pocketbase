@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 import { Config, type ResolvedConfig } from "./config.ts";
-import { version } from "../../package.json";
+import { version } from "../package.json";
 import { loadConfig } from "c12";
 import { defineCommand, runMain } from "citty";
 import { cancel, group, intro, log, outro, confirm, text, spinner, multiselect, isCancel } from "@clack/prompts";
-import { fetchCollections, generate } from "./utils.ts";
+import { fetchCollections, generate } from "./utils.js";
 import { existsSync } from "node:fs";
 
 async function getConfig() {

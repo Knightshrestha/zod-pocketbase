@@ -3,8 +3,8 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { sortBy } from "es-toolkit";
 import type { CollectionModel } from "pocketbase";
-import { stringifyContent } from "./content.ts";
-import { getPocketbase } from "./sdk.ts";
+import { stringifyContent } from "./content.js";
+import { getPocketbase } from "./sdk.js";
 import type { Credentials, ResolvedConfig } from "./config.ts";
 
 export async function fetchCollections(credentials: Credentials): Promise<CollectionModel[]> {
@@ -14,7 +14,7 @@ export async function fetchCollections(credentials: Credentials): Promise<Collec
 }
 
 export async function generate(collections: CollectionModel[], opts: GenerateOpts) {
-  const stub = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../../assets/stubs/index.ts"), "utf-8");
+  const stub = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../assets/stubs/index.ts"), "utf-8");
   const { collectionNames, enums, records, services } = stringifyContent(collections, opts);
   const content = stub
     .replace("@@_COLLECTION_NAMES_@@", collectionNames)

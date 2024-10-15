@@ -24,7 +24,7 @@
   "sideEffects": false,
   "main": "dist/index.js",
   "bin": {
-    "zod-pocketbase": "dist/codegen/cli.js"
+    "zod-pocketbase": "dist/cli.js"
   },
   "exports": {
     ".": {
