@@ -36,10 +36,33 @@ To generate your schemas, run the following from your project directory:
 
 You can provide a `zod-pocketbase.config.ts` or `zod-pocketbase.config.js` config file. 
 
+```ts title="zod-pocketbase.config.ts"
+import type { Config } from "zod-pocketbase";
+
+export default {
+  // default values
+  adminEmail: undefined,
+  adminPassword: undefined,
+  ignore: [],
+  nameEnum: (name: string) => snakeCase(name).toUpperCase(),
+  nameEnumField: (collectionName: string, fieldName: string) => `${collectionName}${pascalCase(fieldName)}`,
+  nameEnumSchema: (name: string) => pascalCase(name),
+  nameEnumType: (name: string) => pascalCase(name),
+  nameEnumValues: (name: string) => `${name}Values`,
+  nameRecordSchema: (name: string) => `${pascalCase(name)}Record`,
+  nameRecordType: (name: string) => `${pascalCase(name)}Record`,
+  output: "./zod-pocketbase.ts",
+  url: undefined,
+} satisfies Config;
+```
+:::tip[For more details]
+See the [reference](/reference/config).
+:::
+
 
 ## Environment variables
 
-You can provide your admin credentials and your PocketBase instance url as environment variables:
+You can provide your admin credentials and your **PocketBase** instance url as environment variables:
 
 ```shell
 ZOD_POCKETBASE_ADMIN_EMAIL="admin@mydomain.com"

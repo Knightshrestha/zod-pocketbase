@@ -3,7 +3,16 @@ title: Schemas
 description: How to secure and simplify schemas for your PocketBase instance.
 ---
 
-## Zod schema
+Here you can find how to secure and simplify schemas for your PocketBase instance:
+
+1. with the CLI generated schemas
+2. with the `expand` method
+3. with the `pick` method  
+4. with the `select` method
+
+## 0 - A Zod schema for a Post collection
+
+Here is the original schema for a `Post` collection:
 
 ```ts
 const Post = z
@@ -32,7 +41,7 @@ const Post = z
   .transform(({ expand, ...rest }) => ({ ...rest, ...expand }));
 ```
 
-## With generated schema
+## 1 - With CLI generated schema
 
 All schemas are generated from your PocketBase.
 
@@ -55,9 +64,9 @@ const Post = PostRecord.pick({ content: true, title: true, updated: true })
   .transform(({ expand, ...rest }) => ({ ...rest, ...expand }));
 ```
 
-## With pick
+## 2 - With pick
 
-`pick` is a syntaxic sugar for native zod `pick`.
+`pick` is a syntactic sugar for native zod `pick`.
 
 ```ts
 import { pick } from "zod-pocketbase";
@@ -79,9 +88,9 @@ const Post = pick(PostRecord, ["content", "title", "updated"])
   .transform(({ expand, ...rest }) => ({ ...rest, ...expand }));
 ```
 
-## With expand
+## 3 - With expand
 
-`expand` is a syntaxic sugar for native zod `extend` on the property `expand` coupled with `transform`.
+`expand` is a syntactic sugar for native zod `extend` on the property `expand` coupled with `transform`.
 
 ```ts
 import { expand, pick } from "zod-pocketbase";
@@ -95,7 +104,7 @@ const Post = expand(pick(PostRecord, ["content", "title", "updated"]), {
 });
 ```
 
-## With select
+## 4 - With select
 
 `select` is the union of `pick` and `expand`.
 

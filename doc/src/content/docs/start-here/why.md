@@ -18,9 +18,6 @@ const options = {
 };
 
 const firstPosts = await pocketbase.collection("posts").getList(1, 10, options);
-
-/* firstPosts = 
-*/
 ```
 
 Oops, you forgot to expand the `author` field because you don't want the author id but the author name. So you...
@@ -39,9 +36,6 @@ const options = {
 };
 
 const firstPosts = await pocketbase.collection("posts").getList(1, 10, options);
-
-/* firstPosts = 
-*/
 ```
 
 Great, but now you want to validate the data you get from PocketBase because the rule is that you should not trust anything for the outer world.
@@ -138,7 +132,7 @@ const pocketbase = new PocketBase("https://my-pocketbase.com");
 +   }),
 + }).transform(({ expand, ...rest }) => ({ ...rest, ...expand }));
 
-/* Or, for the syntax sugar addicts */
+/* Or, for the syntactic sugar addicts */
 + const Post = select(PostRecord, ["content", "title"], {
 +   author: select(AuthorRecord, ["name"])
 + });
@@ -176,7 +170,7 @@ const options = {
 +  fields: fieldsFrom(Post),
 };
 
-/* Or, for the syntax sugar addicts */
+/* Or, for the syntactic sugar addicts */
 + const options = listOptionsFrom(Post, { sort: "-updated" });
 
 const unsafeData = await pocketbase.collection("posts").getList(1, 10, options);

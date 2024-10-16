@@ -44,7 +44,7 @@ Here are a few more values you can use:
 - **Type:** `TypedPocketbase`
 - **Default:** `undefined`
 
-The `pocketbase` parameter allows you to specify a PocketBase instance.
+The `pocketbase` parameter is a mandatory parameter that specifies a PocketBase instance.
 
 ### getRecord
 
@@ -53,12 +53,9 @@ const { getRecord } = helpersFrom({ pocketbase });
 const record = await getRecord({ collection: "posts", id: "123" }, { schema: PostRecord });
 ```
 
-The `getRecord` method returns a single record from a collection.
-
-- **Type:** `string[]`
-- **Default:** `[]`
-
-The `ignore` option allows you to ignore specific collections from being processed.
+:::note
+Coming soon...
+:::
 
 ### getRecords
 
@@ -67,9 +64,6 @@ const { getRecords } = helpersFrom({ pocketbase });
 const records = await getRecords("posts", { schema: PostRecord });
 ```
 
-The `getRecords` method returns multiple records from a collection.
-
-- **Type:** `string[]`
-- **Default:** `[]`
-
-The `ignore` option allows you to ignore specific collections from being processed.
+:::note
+Coming soon...
+:::
