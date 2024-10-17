@@ -48,3 +48,19 @@ type RecordListOpts<S extends AnyZodRecord> = {
   sort?: ZodRecordSort<S>;
 };
 ```
+
+## AnyZodRecord
+
+`AnyZodRecord` represents the type for a record schema.
+
+```ts
+type AnyZodRecord = AnyZodObject | ZodEffects<AnyZodObject>;
+```
+
+## ZodRecordSort
+
+`ZodRecordSort` represents the type for a record sort options.
+
+```ts
+export type ZodRecordSort<S extends AnyZodRecord> = `${"+" | "-"}${ZodRecordMainKeys<S>}` | "@random";
+```

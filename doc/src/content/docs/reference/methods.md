@@ -8,9 +8,7 @@ description: A reference for the methods.
 ```ts
 import { helpersFrom } from "zod-pocketbase";
 
-const helpers = helpersFrom({ 
-  // your parameters here...
-});
+const helpers = helpersFrom({ cache, pocketbase });
 ```
 
 The `helpersFrom` method returns an object with two methods: `getRecord` and `getRecords` described below.
@@ -42,7 +40,6 @@ Here are a few more values you can use:
 
 - **Required**
 - **Type:** `TypedPocketbase`
-- **Default:** `undefined`
 
 The `pocketbase` parameter is a mandatory parameter that specifies a PocketBase instance.
 
@@ -50,20 +47,55 @@ The `pocketbase` parameter is a mandatory parameter that specifies a PocketBase 
 
 ```ts
 const { getRecord } = helpersFrom({ pocketbase });
-const record = await getRecord({ collection: "posts", id: "123" }, { schema: PostRecord });
+const record = await getRecord(reference, { schema });
 ```
 
-:::note
-Coming soon...
-:::
+#### reference
+
+- **Required**
+- **Type:** [`RecordRef`](/reference/types#recordref)
+
+#### schema
+
+- **Required**
+- **Type:** [`AnyZodRecord`](/reference/types#anyzodrecord)
 
 ### getRecords
 
 ```ts
 const { getRecords } = helpersFrom({ pocketbase });
-const records = await getRecords("posts", { schema: PostRecord });
+const records = await getRecords(collection, { filter, page, perPage, schema, skipTotal, sort });
 ```
 
-:::note
-Coming soon...
-:::
+#### collection
+
+- **Required**
+- **Type:** `string`
+
+#### filter
+
+- **Type:** `string`
+
+#### page
+
+- **Type:** `number`
+- **Default:** `1`
+  
+#### perPage
+
+- **Type:** `number`
+- **Default:** `200`
+
+#### schema
+
+- **Required**
+- **Type:** [`AnyZodRecord`](/reference/types#anyzodrecord)
+  
+#### skipTotal
+
+- **Type:** `boolean`
+- **Default:** `true`
+  
+#### sort
+
+- **Type:** [`ZodRecordSort`](/reference/types#zodrecordsort)
