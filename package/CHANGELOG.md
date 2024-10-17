@@ -1,5 +1,11 @@
 # zod-pocketbase
 
+## 0.3.5
+
+### Patch Changes
+
+- optimize SKD calls and options
+
 ## 0.3.4
 
 ### Patch Changes
