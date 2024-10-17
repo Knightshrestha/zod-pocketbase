@@ -42,7 +42,8 @@ export function optionsFrom<S extends AnyZodRecord>(schema: S) {
  * @returns A new schema extended with the given expansion
  */
 export function listOptionsFrom<S extends AnyZodRecord>(schema: S, opts: RecordListOpts<S>) {
-  return { ...optionsFrom(schema), ...opts };
+  const { page = 1, perPage = 30, ...rest } = opts;
+  return { ...optionsFrom(schema), page, perPage, ...rest };
 }
 
 /**
@@ -52,7 +53,8 @@ export function listOptionsFrom<S extends AnyZodRecord>(schema: S, opts: RecordL
  * @returns A new schema extended with the given expansion
  */
 export function fullListOptionsFrom<S extends AnyZodRecord>(schema: S, opts: RecordFullListOpts<S>) {
-  return { ...optionsFrom(schema), ...opts };
+  const { page = 1, perPage = 200, skipTotal = true, ...rest } = opts;
+  return listOptionsFrom(schema, { page, perPage, skipTotal, ...rest });
 }
 
 function expandFromRec<S extends ZodTypeAny>(schema: S, prefix = "") {

@@ -28,10 +28,10 @@ export function helpersFrom({ cache, pocketbase }: HelpersFromOpts) {
   }
 
   async function getRecords<C extends string, S extends AnyZodRecord>(collection: C, opts: GetRecordsOpts<S>): Promise<S["_output"][]> {
-    const { schema, page = 1, perPage = 30, ...otherOpts } = opts;
+    const { schema, ...otherOpts } = opts;
     const sdkOpts = fullListOptionsFrom(schema, otherOpts);
     return get(JSON.stringify({ collection, ...sdkOpts }), async () => {
-      const records = await pocketbase.collection(collection).getFullList(sdkOpts);
+      const records = await pocketbase.collection(collection).getList(sdkOpts.page, sdkOpts.perPage, sdkOpts);
       return schema.array().parseAsync(records);
     });
   }
