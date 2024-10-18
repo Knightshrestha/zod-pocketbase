@@ -24,5 +24,4 @@ export async function generate(collections: CollectionModel[], opts: GenerateOpt
   mkdirSync(dirname(opts.output), { recursive: true });
   writeFileSync(opts.output, content);
 }
-
 export type GenerateOpts = Omit<ResolvedConfig, "adminEmail" | "adminPassword" | "ignore" | "url">;

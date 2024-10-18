@@ -1,6 +1,9 @@
 import { pascalCase, snakeCase } from "es-toolkit";
 import { z } from "zod";
 
+/**
+ * Default config values.
+ */
 export const defaultConfig = {
   ignore: [],
   nameEnum: (name: string) => snakeCase(name).toUpperCase(),
@@ -13,6 +16,9 @@ export const defaultConfig = {
   output: "./zod-pocketbase.ts",
 };
 
+/**
+ * Schema for the PocketBase credentials.
+ */
 export const Credentials = z.object({
   adminEmail: z.string().email(),
   adminPassword: z.string(),
@@ -20,6 +26,9 @@ export const Credentials = z.object({
 });
 export type Credentials = z.infer<typeof Credentials>;
 
+/**
+ * Schema for the config file.
+ */
 export const Config = z.object({
   ...Credentials.partial().shape,
   ignore: z.string().array().default(defaultConfig.ignore),

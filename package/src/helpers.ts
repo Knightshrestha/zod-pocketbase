@@ -38,9 +38,6 @@ export function helpersFrom({ cache, pocketbase }: HelpersFromOpts) {
 
   return { getRecord, getRecords };
 }
-
 export type GetRecordOpts<S extends AnyZodRecord> = { schema: S };
-
 export type GetRecordsOpts<S extends AnyZodRecord> = RecordFullListOpts<S> & { schema: S };
-
 export type HelpersFromOpts = { cache?: string; pocketbase: Pocketbase };

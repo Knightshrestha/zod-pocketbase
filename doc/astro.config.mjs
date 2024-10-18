@@ -8,7 +8,7 @@ export default defineConfig({
     starlight({
       title: "Zod PocketBase",
       social: {
-        github: "https://github.com/withastro/starlight",
+        github: "https://github.com/gbouteiller/zod-pocketbase",
       },
       sidebar: [
         {
