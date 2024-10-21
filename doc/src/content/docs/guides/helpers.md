@@ -36,11 +36,11 @@ See the [reference](/reference/methods#getrecord).
 
 ```ts
 const { items: myPosts } = await getRecords("posts", { schema: PostRecord });
-const { items:someSpecificPosts } = await getRecords("posts", { schema: PostRecord, sort: "-updated", page: 2, perPage: 10 });
+const { items: someSpecificPosts } = await getRecords("posts", { schema: PostRecord, sort: "-updated", page: 2, perPage: 10 });
 ```
 
 :::caution
-The provided schema is only for a record. The method returns a `ZodRecordsList` object.
+The provided schema is only for a record. The method returns a [RecordsList](/reference/types/#recordslist) object.
 :::
 
 :::tip[For more details]
