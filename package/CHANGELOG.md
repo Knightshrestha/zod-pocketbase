@@ -1,5 +1,12 @@
 # zod-pocketbase
 
+## 0.3.6
+
+### Patch Changes
+
+- a8d3098: add recordsListFrom method to construct a records list schema from a record schema
+- a8d3098: fix getRecords helper return type
+
 ## 0.3.5
 
 ### Patch Changes
