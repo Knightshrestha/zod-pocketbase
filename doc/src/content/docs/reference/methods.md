@@ -13,9 +13,7 @@ const helpers = helpersFrom({ cache, pocketbase });
 
 The `helpersFrom` method returns an object with two methods: `getRecord` and `getRecords` described below.
 
-### parameters
-
-#### cache
+### cache
 
 - **Type:** `string`
 - **Default:** `0s`
@@ -36,66 +34,70 @@ Here are a few more values you can use:
 - `cache: "*"` will never fetch new data (after the first success).
 - `cache: "0s"` will always fetch new data.
 
-#### pocketbase
+### pocketbase
 
 - **Required**
 - **Type:** `TypedPocketbase`
 
 The `pocketbase` parameter is a mandatory parameter that specifies a PocketBase instance.
 
-### getRecord
+## getRecord
 
 ```ts
 const { getRecord } = helpersFrom({ pocketbase });
 const record = await getRecord(reference, { schema });
 ```
 
-#### reference
+The `getRecord` method returns a single record from your PocketBase instance.
+
+### reference
 
 - **Required**
 - **Type:** [`RecordRef`](/reference/types#recordref)
 
-#### schema
+### schema
 
 - **Required**
 - **Type:** [`AnyZodRecord`](/reference/types#anyzodrecord)
 
-### getRecords
+## getRecords
 
 ```ts
 const { getRecords } = helpersFrom({ pocketbase });
-const records = await getRecords(collection, { filter, page, perPage, schema, skipTotal, sort });
+const recordsList = await getRecords(collection, { filter, page, perPage, schema, skipTotal, sort });
 ```
 
-#### collection
+The `getRecords` method returns a records list from your PocketBase instance.
+
+### collection
 
 - **Required**
 - **Type:** `string`
 
-#### filter
+### filter
 
 - **Type:** `string`
 
-#### page
+### page
 
 - **Type:** `number`
 - **Default:** `1`
   
-#### perPage
+### perPage
 
 - **Type:** `number`
 - **Default:** `200`
 
-#### schema
+### schema
 
 - **Required**
 - **Type:** [`AnyZodRecord`](/reference/types#anyzodrecord)
   
-#### skipTotal
+### skipTotal
 
 - **Type:** `boolean`
 - **Default:** `true`
   
-#### sort
+### sort
 
 - **Type:** [`ZodRecordSort`](/reference/types#zodrecordsort)

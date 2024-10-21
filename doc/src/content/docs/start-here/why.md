@@ -17,7 +17,7 @@ const options = {
   sort: "-updated"
 };
 
-const firstPosts = await pocketbase.collection("posts").getList(1, 10, options);
+const { items: firstPosts } = await pocketbase.collection("posts").getList(1, 10, options);
 ```
 
 Oops, you forgot to expand the `author` field because you don't want the author id but the author name. So you...
@@ -35,7 +35,7 @@ const options = {
 +  expand: ["author"],
 };
 
-const firstPosts = await pocketbase.collection("posts").getList(1, 10, options);
+const { items: firstPosts } = await pocketbase.collection("posts").getList(1, 10, options);
 ```
 
 Great, but now you want to validate the data you get from PocketBase because the rule is that you should not trust anything for the outer world.
@@ -66,8 +66,8 @@ const options = {
   expand: ["author"],
 };
 
-const unsafeData = await pocketbase.collection("posts").getList(1, 10, options);
-+ const firstPosts = Post.array().parse(unsafeData);
+const { items } = await pocketbase.collection("posts").getList(1, 10, options);
++ const firstPosts = Post.array().parse(items);
 ```
 
 Better, but even if you get your validated structured data now, you could reduce the size of the response from the server by adding...
@@ -98,8 +98,8 @@ const options = {
 +  fields: ["content", "expand.author.name", "title"],
 };
 
-const unsafeData = await pocketbase.collection("posts").getList(1, 10, options);
-const firstPosts = Post.array().parse(unsafeData);
+const { items } = await pocketbase.collection("posts").getList(1, 10, options);
+const firstPosts = Post.array().parse(items);
 ```
 
 Cool! So what would you need Zod PocketBase for?
@@ -143,8 +143,8 @@ const options = {
   fields: ["content", "expand.author.name", "title"],
 };
 
-const unsafeData = await pocketbase.collection("posts").getList(1, 10, options);
-const firstPosts = Post.array().parse(unsafeData);
+const { items } = await pocketbase.collection("posts").getList(1, 10, options);
+const firstPosts = Post.array().parse(items);
 ```
 
 ## Type-safe expand and fields options
@@ -173,8 +173,8 @@ const options = {
 /* Or, for the syntactic sugar addicts */
 + const options = listOptionsFrom(Post, { sort: "-updated" });
 
-const unsafeData = await pocketbase.collection("posts").getList(1, 10, options);
-const firstPosts = Post.array().parse(unsafeData);
+const { items } = await pocketbase.collection("posts").getList(1, 10, options);
+const firstPosts = Post.array().parse(items);
 ```
 
 ## More sugar with helpers
@@ -196,7 +196,7 @@ const Post = select(PostRecord, ["content", "title"], {
 - const options = optionsFrom(Post, { sort: "-updated" });
 + const options = { perPage: 10, schema: Post, sort: "-updated" };
 
-- const unsafeData = await pocketbase.collection("posts").getList(1, 10, options);
-- const firstPosts = Post.array().parse(unsafeData);
-+ const firstPosts = getRecords("posts", options);
+- const { items } = await pocketbase.collection("posts").getList(1, 10, options);
+- const firstPosts = Post.array().parse(items);
++ const { items: firstPosts } = getRecords("posts", options);
 ```

@@ -35,12 +35,12 @@ See the [reference](/reference/methods#getrecord).
 `getRecords` is a helper to get multiple records from your PocketBase instance. It takes a collection name as its first argument and an object with some options (at least a record schema) as its second argument.
 
 ```ts
-const myPosts = await getRecords("posts", { schema: PostRecord });
-const someSpecificPosts = await getRecords("posts", { schema: PostRecord, sort: "-updated", page: 2, perPage: 10 });
+const { items: myPosts } = await getRecords("posts", { schema: PostRecord });
+const { items:someSpecificPosts } = await getRecords("posts", { schema: PostRecord, sort: "-updated", page: 2, perPage: 10 });
 ```
 
 :::caution
-The provided schema is only for a record. The method automatically adds `.array()`.
+The provided schema is only for a record. The method returns a `ZodRecordsList` object.
 :::
 
 :::tip[For more details]
