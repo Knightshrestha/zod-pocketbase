@@ -1,5 +1,11 @@
 # zod-pocketbase
 
+## 0.3.7
+
+### Patch Changes
+
+- d5481dc: fix getRecords return type
+
 ## 0.3.6
 
 ### Patch Changes
