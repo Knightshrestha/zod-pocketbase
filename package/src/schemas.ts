@@ -2,19 +2,15 @@ import { type AnyZodObject, type objectUtil, z, type ZodEffects, type ZodObject,
 import type { AnyZodRecord, HasRequiredKeys, ZodRecordKeys } from "./types.ts";
 
 /**
- * Returns a records list schema from a record schema.
- * @param schema - The original schema
- * @returns A records list schema
+ * Records list schema.
  */
-export function recordsListFrom<S extends AnyZodRecord>(schema: S) {
-  return z.object({
-    items: schema.array(),
-    page: z.number().int().min(1),
-    perPage: z.number().int().min(1),
-    totalItems: z.number().int().min(-1),
-    totalPages: z.number().int().min(-1),
-  });
-}
+export const AnyRecordsList = z.object({
+  items: z.any().array(),
+  page: z.number().int().min(1),
+  perPage: z.number().int().min(1),
+  totalItems: z.number().int().min(-1),
+  totalPages: z.number().int().min(-1),
+});
 
 /**
  * Extends the given schema with the given expansion.
@@ -71,5 +67,5 @@ export type ZodObjectExpand<S extends AnyZodObject, E extends ZodRawShape> =
 export type ZodObjectPick<S extends AnyZodObject, K extends ZodRecordKeys<S>[]> =
   S extends ZodObject<infer T, infer U, infer C> ? ZodObject<Pick<T, K[number]>, U, C> : never;
 
-export type ZodRecordsList<S extends AnyZodRecord> = ReturnType<typeof recordsListFrom<S>>;
-export type RecordsList<S extends AnyZodRecord> = ZodRecordsList<S>["_output"];
+export type AnyRecordsList = z.infer<typeof AnyRecordsList>;
+export type RecordsList<S extends AnyZodRecord> = Omit<AnyRecordsList, "items"> & { items: S["_output"][] };

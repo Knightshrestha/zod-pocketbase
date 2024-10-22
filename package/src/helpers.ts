@@ -3,7 +3,7 @@ import { fullListOptionsFrom, optionsFrom } from "./options.js";
 import type { AnyZodRecord, RecordFullListOpts, RecordIdRef, RecordRef, RecordSlugRef } from "./types.ts";
 //@ts-expect-error
 import { AssetCache } from "@11ty/eleventy-fetch";
-import { recordsListFrom, type RecordsList } from "./schemas.ts";
+import { AnyRecordsList, type RecordsList } from "./schemas.ts";
 
 export function helpersFrom({ cache, pocketbase }: HelpersFromOpts) {
   async function get<R>(id: string, method: () => Promise<R>): Promise<R> {
@@ -33,7 +33,7 @@ export function helpersFrom({ cache, pocketbase }: HelpersFromOpts) {
     const sdkOpts = fullListOptionsFrom(schema, otherOpts);
     return get(JSON.stringify({ collection, ...sdkOpts }), async () => {
       const recordsList = await pocketbase.collection(collection).getList(sdkOpts.page, sdkOpts.perPage, sdkOpts);
-      return recordsListFrom(schema).parseAsync(recordsList);
+      return AnyRecordsList.extend({ items: schema.array() }).parseAsync(recordsList);
     });
   }
 

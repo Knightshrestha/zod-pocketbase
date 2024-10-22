@@ -65,14 +65,6 @@ type AnyZodRecord = AnyZodObject | ZodEffects<AnyZodObject>;
 export type ZodRecordSort<S extends AnyZodRecord> = `${"+" | "-"}${ZodRecordMainKeys<S>}` | "@random";
 ```
 
-## ZodRecordsList
-
-`ZodRecordsList` represents the type for a records list schema.
-
-```ts
-export type ZodRecordsList<S extends AnyZodRecord> = ReturnType<typeof recordsListFrom<S>>;
-```
-
 ## RecordsList
 
 `RecordsList` represents the type for a records list.
