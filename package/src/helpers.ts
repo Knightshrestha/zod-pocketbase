@@ -20,21 +20,21 @@ export function helpersFrom({ cache, pocketbase }: HelpersFromOpts) {
   async function getRecord<C extends string, S extends AnyZodRecord>(ref: RecordRef<C>, opts: GetRecordOpts<S>) {
     const { schema } = opts;
     const sdkOpts = optionsFrom(schema);
-    return get(JSON.stringify({ ...ref, ...sdkOpts }), async () => {
-      const unsafeRecord = await ("id" in ref
+    const unsafeRecord = await get(JSON.stringify({ ...ref, ...sdkOpts }), async () =>
+      "id" in ref
         ? pocketbase.collection(ref.collection).getOne(ref.id, sdkOpts)
-        : pocketbase.collection(ref.collection).getFirstListItem(`slug = "${ref.slug}"`, sdkOpts));
-      return schema.parseAsync(unsafeRecord);
-    });
+        : pocketbase.collection(ref.collection).getFirstListItem(`slug = "${ref.slug}"`, sdkOpts),
+    );
+    return schema.parseAsync(unsafeRecord);
   }
 
   async function getRecords<C extends string, S extends AnyZodRecord>(collection: C, opts: GetRecordsOpts<S>): Promise<RecordsList<S>> {
     const { schema, ...otherOpts } = opts;
     const sdkOpts = fullListOptionsFrom(schema, otherOpts);
-    return get(JSON.stringify({ collection, ...sdkOpts }), async () => {
-      const recordsList = await pocketbase.collection(collection).getList(sdkOpts.page, sdkOpts.perPage, sdkOpts);
-      return AnyRecordsList.extend({ items: schema.array() }).parseAsync(recordsList);
-    });
+    const recordsList = await get(JSON.stringify({ collection, ...sdkOpts }), async () =>
+      pocketbase.collection(collection).getList(sdkOpts.page, sdkOpts.perPage, sdkOpts),
+    );
+    return AnyRecordsList.extend({ items: schema.array() }).parseAsync(recordsList);
   }
 
   return { getRecord, getRecords };
