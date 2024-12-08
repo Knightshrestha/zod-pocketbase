@@ -1,5 +1,11 @@
 # zod-pocketbase
 
+## 0.4.0
+
+### Minor Changes
+
+- separate files that use node packages in server directory
+
 ## 0.3.8
 
 ### Patch Changes

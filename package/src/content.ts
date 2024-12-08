@@ -1,6 +1,6 @@
 import { sortBy } from "es-toolkit";
 import type { CollectionModel, SchemaField } from "pocketbase";
-import type { GenerateOpts } from "./utils.ts";
+import type { GenerateOpts } from "./server/utils.ts";
 
 export function stringifyContent(collections: CollectionModel[], opts: GenerateOpts) {
   function getCollectionSelectFields() {
