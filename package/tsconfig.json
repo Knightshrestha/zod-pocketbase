@@ -3,7 +3,7 @@
   "compilerOptions": {
     // Enable top-level await, and other modern ESM features.
     "target": "ESNext",
-    "module": "Node16",
+    "module": "NodeNext",
     // Enable module resolution without file extensions on relative paths, for things like npm package imports.
     "moduleResolution": "Node16",
     // Allow importing TypeScript files using their native extension (.ts(x)).

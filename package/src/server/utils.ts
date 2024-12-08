@@ -6,7 +6,7 @@ import { stringifyContent } from "../content.js";
 import type { ResolvedConfig } from "../config.ts";
 
 export async function generate(collections: CollectionModel[], opts: GenerateOpts) {
-  const stub = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../assets/stubs/index.ts"), "utf-8");
+  const stub = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), "../../assets/stubs/index.ts"), "utf-8");
   const { collectionNames, enums, records, services } = stringifyContent(collections, opts);
   const content = stub
     .replace("@@_COLLECTION_NAMES_@@", collectionNames)

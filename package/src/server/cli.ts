@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Config, type ResolvedConfig } from "../config.ts";
-import { version } from "../../package.json";
+import pkg from "../../package.json" assert { type: "json" };
 import { loadConfig } from "c12";
 import { defineCommand, runMain } from "citty";
 import { cancel, group, intro, log, outro, confirm, text, spinner, multiselect, isCancel } from "@clack/prompts";
@@ -72,7 +72,7 @@ async function setGeneratedFilePath(config: ResolvedConfig) {
 }
 
 const main = defineCommand({
-  meta: { name: "zod-pocketbase", version, description: "Generate Zod schemas for your pocketbase instance." },
+  meta: { name: "zod-pocketbase", version: pkg.version, description: "Generate Zod schemas for your pocketbase instance." },
   run: async () => {
     intro(`ZOD POCKETBASE`);
     const config = await getConfig();

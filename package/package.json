@@ -1,6 +1,6 @@
 {
   "name": "zod-pocketbase",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "",
   "author": {
     "email": "gregory.bouteiller@niama.re",
@@ -45,20 +45,20 @@
     "build": "tsup"
   },
   "dependencies": {
-    "@11ty/eleventy-fetch": "^4.0.1",
-    "@clack/prompts": "^0.7.0",
+    "@11ty/eleventy-fetch": "^5.0.1",
+    "@clack/prompts": "^0.8.2",
     "c12": "^2.0.1",
     "citty": "^0.1.6",
-    "es-toolkit": "^1.25.2"
+    "es-toolkit": "^1.29.0"
   },
   "devDependencies": {
-    "@types/node": "^22.7.7",
-    "pocketbase": "^0.21.5",
-    "tsup": "^8.3.0",
+    "@types/node": "^22.10.1",
+    "pocketbase": "<0.22.0",
+    "tsup": "^8.3.5",
     "zod": "^3.23.8"
   },
   "peerDependencies": {
-    "pocketbase": "^0.21.5",
+    "pocketbase": "<0.22.0",
     "zod": "^3.23.8"
   }
 }
