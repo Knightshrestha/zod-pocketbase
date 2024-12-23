@@ -8,31 +8,16 @@ description: A reference for the methods.
 ```ts
 import { helpersFrom } from "zod-pocketbase";
 
-const helpers = helpersFrom({ cache, pocketbase });
+const helpers = helpersFrom({ fetch, pocketbase });
 ```
 
 The `helpersFrom` method returns an object with two methods: `getRecord` and `getRecords` described below.
 
-### cache
+### fetch
 
-- **Type:** `string`
-- **Default:** `0s`
+- **Type:** `(url: RequestInfo | URL, config?: RequestInit) => Promise<Response>`
 
-After this amount of time has passed, getRecord and getRecords will fetch new data from your PocketBase instance.
-
-The `cache` parameter supports the following values:
-
-- `s` is seconds (e.g. `cache: "43s"`)
-- `m` is minutes (e.g. `cache: "2m"`)
-- `h` is hours (e.g. `cache: "99h"`)
-- `d` is days (The default is `cache: "1d"`)
-- `w` is weeks, or shorthand for 7 days (e.g. `cache: 2w` is 14 days)
-- `y` is years, or shorthand for 365 days (not exactly one year) (e.g. `cache: 2y` is 730 days)
-
-Here are a few more values you can use:
-
-- `cache: "*"` will never fetch new data (after the first success).
-- `cache: "0s"` will always fetch new data.
+Optional custom fetch function to use for sending the request.
 
 ### pocketbase
 

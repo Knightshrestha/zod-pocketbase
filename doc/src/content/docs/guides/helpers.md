@@ -8,12 +8,16 @@ Helpers are syntactic sugar to get records from your PocketBase instance. In add
 To access helpers, you have to, at least, provide an instance of PocketBase SDK to the `helpersFrom` function.
 
 ```ts
+import Fetch from "@11ty/eleventy-fetch";
 import { helpersFrom } from "zod-pocketbase";
 import Pocketbase from "pocketbase";
 
 const { getRecord, getRecords } = helpersFrom({ 
   pocketbase: new Pocketbase(import.meta.env.ZOD_POCKETBASE_URL),
-  cache:  "1d",
+  fetch:  async (url, fetchOptions) => {
+    const { body, ...init } = await Fetch(url, { fetchOptions, returnType: "response", type: "json" });
+    return new Response(JSON.stringify(body), init);
+  },
 });
 ```
 
