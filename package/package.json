@@ -1,6 +1,6 @@
 {
-  "name": "@deathknight/zod-pocketbase",
-  "version": "1.0.0",
+  "name": "@knightshrestha/zod-pocketbase",
+  "version": "1.1.0",
   "description": "",
   "author": {
     "email": "gregory.bouteiller@niama.re",

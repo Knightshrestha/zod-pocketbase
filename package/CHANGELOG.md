@@ -1,5 +1,11 @@
 # zod-pocketbase
 
+## 1.1.0
+
+### Minor Changes
+
+- change package name
+
 ## 1.0.0
 
 ### Major Changes
