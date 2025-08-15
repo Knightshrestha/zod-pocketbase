@@ -1,5 +1,11 @@
 # zod-pocketbase
 
+## 1.0.0
+
+### Major Changes
+
+- Updated pocketbase endpoint
+
 ## 0.5.0
 
 ### Minor Changes
